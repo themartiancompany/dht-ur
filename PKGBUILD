@@ -42,28 +42,51 @@ license=(
 makedepends=(
   "cmake"
 )
-_dht_cmake_patch_uri="${_http}/transmission/${_pkg}/commit/b02da598.patch"
+_cmake_patch_uri="${_http}/transmission/${_pkg}/commit/b02da598.patch"
 source=(
   "${url}/archive/refs/tags/${_pkg}-${pkgver}.tar.gz"
-  "dht-cmake.patch::https://github.com/transmission/dht/commit/b02da598.patch"
+  "${_pkg}-cmake.patch::${_cmake_patch_uri}"
 )
-sha256sums=('caba469a784a5c359c084099fdc025cfe09b1faec2ba9ba257b7384351c43c0a'
-            '91fb75029bf04456bb7fd9c7cc14d544e906d35a309cc8de5be081049aeb7649')
+sha256sums=(
+  'caba469a784a5c359c084099fdc025cfe09b1faec2ba9ba257b7384351c43c0a'
+  '91fb75029bf04456bb7fd9c7cc14d544e906d35a309cc8de5be081049aeb7649'
+)
 
 prepare() {
-  patch -d dht-dht-$pkgver -p1 < dht-cmake.patch # Add cmake support
+ # Add cmake support
+  patch \
+    -d \
+    "${_pkg}-${_pkg}-${pkgver}" \
+    -p1 < \
+    "${_pkg}-cmake.patch"
 }
 
 build() {
-  cmake -B build -S dht-dht-$pkgver \
-    -DCMAKE_INSTALL_PREFIX=/usr \
-    -DCMAKE_INSTALL_INCLUDEDIR=include/dht \
+  local \
+    _cmake_opts=()
+  _cmake_opts=(
+    -DCMAKE_INSTALL_PREFIX="/usr"
+    -DCMAKE_INSTALL_INCLUDEDIR="include/dht"
     -DCMAKE_C_FLAGS="$CFLAGS -ffat-lto-objects"
-  cmake --build build
+  )
+  cmake \
+    -B \
+      "build" \
+    -S \
+      "${_pkg}-${_pkg}-${pkgver}" \
+    "${_cmake_opts[@]}"
+  cmake \
+    --build \
+      "build"
 }
 
 package() {
-  DESTDIR="$pkgdir" cmake --install build
-  install -Dm644 dht-dht-$pkgver/LICENCE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+  DESTDIR="${pkgdir}" \
+  cmake \
+    --install \
+      "build"
+  install \
+    -Dm644 \
+    "${_pkg}-${_pkg}-${pkgver}/LICENCE" \
+    "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 }
-
