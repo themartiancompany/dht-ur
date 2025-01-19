@@ -32,6 +32,13 @@ pkgrel=5
 pkgdesc='BitTorrent DHT library'
 arch=(
   'x86_64'
+  'i686'
+  'armv7l'
+  'armv6l'
+  'aarch64'
+  'mips'
+  'pentium4'
+  'powerpc'
 )
 _http="https://github.com"
 _ns="jech"
