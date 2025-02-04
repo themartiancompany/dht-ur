@@ -1,6 +1,7 @@
-#
+# SPDX-License-Identifier: AGPL-3.0
+
 #    ----------------------------------------------------------------------
-#    Copyright © 2025  Pellegrino Prevete
+#    Copyright © 2024, 2025  Pellegrino Prevete
 #
 #    All rights reserved
 #    ----------------------------------------------------------------------
@@ -17,9 +18,7 @@
 #
 #    You should have received a copy of the GNU Affero General Public License
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
-#
 
-#
 # Maintainer: Truocolo <truocolo@aol.com>
 # Maintainer: Pellegrino Prevete (tallero) <pellegrinoprevete@gmail.com>
 # Maintainer: Brett Cornwall <ainola@archlinux.org>
